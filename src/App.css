@@ -31,3 +31,37 @@
     transform: rotate(360deg);
   }
 }
+
+.font-style span{
+  font-family: 'Viga', sans-serif;
+}
+
+.font-style{
+  font-family: 'Viga', sans-serif;
+}
+
+.alert-custom{
+  width: 60%;
+  font-size: 9px;
+}
+
+.center-alert{
+  padding-left: 28%;
+}
+
+.update-create{
+  background-color:#343a40;
+  color: white;
+  padding-top: 1%;
+  padding-bottom: 2%;
+  border-radius: 15px;
+}
+
+.size-input{
+  width: 70%;
+  margin-left: 15%;
+}
+
+.center-detail{
+  margin-left: 30%;
+}

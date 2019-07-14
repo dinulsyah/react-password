@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Dashboard from './components/Dashboard';
+import NoPage from './components/NoPage';
+import Create from './components/Create';
+import Edit from './components/Edit';
+import Detail from './components/Detail';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Provider store={store}>
+        <div className="App">
+          <Navbar></Navbar>
+          <Switch>
+            <Route path="/" exact component={Dashboard}></Route>
+            <Route path="/create" exact component={Create}></Route>
+            <Route path="/edit/:id" exact component={Edit}></Route>
+            <Route path="/detail/:id" exact component={Detail}></Route>
+            <Route exact component={NoPage}></Route>
+          </Switch>
+        </div>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
