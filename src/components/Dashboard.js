@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
         return (
             <div style={{ padding: 50 }}>
                 <Container>
-                    <h1 className="font-style"><span><u>My Password List</u></span></h1>
+                    <h1 className="font-style" data-testid="title"><span><u>My Password List</u></span></h1>
                     <Row className="justify-content-md-center" style={{ padding: 50 }}>
                         <Col md={4}>
                             <Form.Control type="text" placeholder="Search Url.." value={this.state.value} onChange={this.handleChange}/>

@@ -89,12 +89,12 @@ class Register extends Component {
                             <Form onSubmit={this.addDataSuccess.bind(this)}>
                                 <Form.Group controlId="formBasicUsername">
                                     <Form.Label>Username</Form.Label>
-                                    <Form.Control onChange={usernameInput} type="text" placeholder="Enter username" />
+                                    <Form.Control onChange={usernameInput} type="text" placeholder="Enter username" data-testid="username"/>
                                 </Form.Group>
                                 
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control onChange={emailInput} type="email" placeholder="Enter email" />
+                                    <Form.Control onChange={emailInput} type="email" placeholder="Enter email" data-testid="email"/>
                                     <Form.Text className="text-muted">
                                         We'll never share your email with anyone else.
                                     </Form.Text>
@@ -102,10 +102,10 @@ class Register extends Component {
                                 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control onChange={passwordInput} type="password" placeholder="Password" />
+                                    <Form.Control onChange={passwordInput} type="password" placeholder="Password" data-testid="password"/>
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" data-testid="testaja">
                                     Submit
                                 </Button>
                             </Form>

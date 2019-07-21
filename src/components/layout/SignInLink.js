@@ -18,7 +18,7 @@ class SignInLink extends Component {
             <div>
                 <Link to='/home'><Button variant="success" size="sm">My Dashboard</Button></Link>&nbsp;&nbsp;
                 <Link to='/create'><Button variant="success" size="sm">Create New Password</Button></Link>&nbsp;&nbsp;
-                <Button variant="danger" size="sm" onClick={this.logout}>Sign Out</Button>
+                <Button variant="danger" size="sm" onClick={this.logout} data-testid="logout">Sign Out</Button>
             </div>
         )
     }

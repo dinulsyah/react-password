@@ -18,6 +18,7 @@ class Landing extends Component {
             email:'',
             password:'',
         };
+        this.setField = this.setField.bind(this)
     }
 
     componentDidMount(){
@@ -49,6 +50,7 @@ class Landing extends Component {
         console.log('test',this.state.email, this.state.password)
         firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
             .then(authUser => {
+                this.setField()
                 this.props.setEmail(authUser.user.email);
                 this.props.setIsLogin(true); 
                 this.props.history.push('/home');
@@ -58,6 +60,14 @@ class Landing extends Component {
                 console.log(error.message);
             })
     }
+
+    setField(){
+        const backToInitialState = {
+            email:'',
+            password:''
+        }
+        this.setState(backToInitialState)
+     }
 
     render() {
         const emailInput = (event) =>{
@@ -77,18 +87,18 @@ class Landing extends Component {
                 <Container>
                     <Row className="justify-content-md-center">
                         <Col md={4} className="login">
-                            <h3>Sign in</h3>
+                            <h3 data-testid="heading">Sign in</h3>
                             <Form onSubmit={this.addDataSuccess.bind(this)}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" onChange={emailInput}/>
+                                    <Form.Control type="email" placeholder="Enter email" onChange={emailInput} data-testid="email"/>
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" onChange={passwordInput}/>
+                                    <Form.Control type="password" placeholder="Password" onChange={passwordInput} data-testid="password"/>
                                 </Form.Group>
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" data-testid="testaja">
                                     Submit
                                 </Button>
                             </Form>

@@ -161,38 +161,38 @@ export default class Create extends React.Component{
                         <Form onSubmit={this.addDataSuccess.bind(this)}>
                             <Form.Group controlId="formGroupEmail">
                                 <Form.Label className="font-style">Url</Form.Label>
-                                <Form.Control type="text" placeholder="Enter url" name='url' onChange={this.handleChange.bind(this)} value={this.state.data.url} className="size-input"/>
+                                <Form.Control type="text" placeholder="Enter url" name='url' onChange={this.handleChange.bind(this)} value={this.state.data.url} className="size-input" data-testid="url"/>
                             </Form.Group>
                             <Form.Group controlId="formGroupUsername">
                                 <Form.Label className="font-style">Username</Form.Label>
-                                <Form.Control type="text" name='username' placeholder="Enter Username" onChange={this.handleChange.bind(this)} value={this.state.data.username} className="size-input"/>
+                                <Form.Control type="text" name='username' placeholder="Enter Username" onChange={this.handleChange.bind(this)} value={this.state.data.username} className="size-input" data-testid="username"/>
                             </Form.Group>
                             <Form.Group controlId="formGroupPassword">
                                 <Form.Label className="font-style">Password</Form.Label>
-                                <Form.Control type="text" name='password' placeholder="Password" onChange={this.handleChange.bind(this)} value={this.state.data.password} className="size-input"/>
+                                <Form.Control type="text" name='password' placeholder="Password" onChange={this.handleChange.bind(this)} value={this.state.data.password} className="size-input" data-testid="password"/>
                             </Form.Group>
                             {(this.state.data.password) 
                             ? (
                             <div className="center-alert">
-                                <Alert variant={(this.state.hasLowerCase) ? "success" : "danger"} className="alert-custom">
+                                <Alert variant={(this.state.hasLowerCase) ? "success" : "danger"} className="alert-custom" data-testid="lower">
                                     Password at least must have one lowercase character
                                 </Alert>
-                                <Alert variant={(this.state.hasUpperCase) ? "success" : "danger"}  className="alert-custom">
+                                <Alert variant={(this.state.hasUpperCase) ? "success" : "danger"}  className="alert-custom" data-testid="upper">
                                     Password at least must have one uppercase character
                                 </Alert>
-                                <Alert variant={(this.state.hasNumber) ? "success" : "danger"}  className="alert-custom">
+                                <Alert variant={(this.state.hasNumber) ? "success" : "danger"}  className="alert-custom" data-testid="number">
                                     Password at least must have one number character
                                 </Alert>
-                                <Alert variant={(this.state.hasSpecial) ? "success" : "danger"}  className="alert-custom">
+                                <Alert variant={(this.state.hasSpecial) ? "success" : "danger"}  className="alert-custom" data-testid="special">
                                     Password at least must have one special character
                                 </Alert>
-                                <Alert variant={(this.state.has5Char) ? "success" : "danger"}  className="alert-custom">
+                                <Alert variant={(this.state.has5Char) ? "success" : "danger"}  className="alert-custom" data-testid="length">
                                     Password length must be more than 5 characters
                                 </Alert>
                             </div>)
                             :''
                             }
-                            <Button variant="primary" type="submit" size="sm">
+                            <Button variant="primary" type="submit" size="sm" data-testid="testaja">
                                 Submit
                             </Button>
                         </Form>

@@ -146,7 +146,7 @@ class Create extends React.Component{
                             </Form.Group>
                             <Form.Group controlId="formGroupUsername">
                                 <Form.Label className="font-style">Username</Form.Label>
-                                <Form.Control type="text" name='username' placeholder="Enter Username" onChange={this.handleChange.bind(this)} value={this.state.data.username} className="size-input"data-testid="username"/>
+                                <Form.Control type="text" name='username' placeholder="Enter Username" onChange={this.handleChange.bind(this)} value={this.state.data.username} className="size-input" data-testid="username"/>
                             </Form.Group>
                             <Form.Group controlId="formGroupPassword">
                                 <Form.Label className="font-style">Password</Form.Label>
