@@ -7,7 +7,7 @@ export default function SignOut() {
         <div>
             &nbsp;&nbsp;
             <Link to='/register'><Button variant="primary" size="sm">Register</Button></Link>&nbsp;&nbsp;
-            <Link to='/signin'><Button variant="primary" size="sm">Sign In</Button></Link>
+            <Link to='/'><Button variant="primary" size="sm">Sign In</Button></Link>
         </div>
     )
 }

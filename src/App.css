@@ -65,3 +65,17 @@
 .center-detail{
   margin-left: 30%;
 }
+
+.login{
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  position: relative;
+  padding: 20px;
+}
+
+.register{
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  position: relative;
+  padding: 20px;
+}

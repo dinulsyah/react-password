@@ -34,7 +34,7 @@ export default class Detail extends Component {
     delete(id){
         firebase.firestore().collection('passwords').doc(id).delete().then(() => {
           console.log("Document successfully deleted!");
-          this.props.history.push("/")
+          this.props.history.push("/home")
         }).catch((error) => {
           console.error("Error removing document: ", error);
         });
@@ -49,7 +49,7 @@ export default class Detail extends Component {
                             <h1 className="font-style">Detail</h1>
                             <Card style={{ width: '18rem' }} className="center-detail">
                                 <Card.Body>
-                                    <Card.Subtitle className="mb-2 text-muted"><b>{this.state.password.url}</b></Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">Url:<b>{this.state.password.url}</b></Card.Subtitle>
                                     <Card.Subtitle className="mb-2 text-muted">Username:{this.state.password.username}</Card.Subtitle>
                                     <Card.Subtitle className="mb-2 text-muted">Password:{this.state.password.password}</Card.Subtitle>
                                     <Card.Subtitle className="mb-2 text-muted">CreatedAt:{this.state.password.createdAt}</Card.Subtitle>

@@ -1,12 +1,14 @@
-import React from 'react';
+import React , { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import SignIn from './SignInLink';
 import SignOut from './SignOutLink';
-import '../../App.css'
+import '../../App.css';
+import { connect } from 'react-redux';
 
-export default function MyNavbar() {
-    return (
-        <div>
+class MyNavbar extends Component {
+    render() {
+        return (    
+            <div>
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand className="font-style">
                     <img
@@ -22,14 +24,27 @@ export default function MyNavbar() {
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="margin-right-nav">
-                        <SignIn></SignIn>
+                    { 
+                        (this.props.isLogin) ?
+                        <Navbar.Text>
+                            <SignIn></SignIn>
+                        </Navbar.Text>
+                        :
+                        <Navbar.Text className="margin-right-nav">
+                            <SignOut></SignOut>
                     </Navbar.Text>
-                    <Navbar.Text>
-                        <SignOut></SignOut>
-                    </Navbar.Text>
+                    }
                 </Navbar.Collapse>
             </Navbar>
         </div>
-    )
+        )
+    }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        isLogin:state.isLogin
+    }
+}
+
+export default connect(mapStateToProps)(MyNavbar)

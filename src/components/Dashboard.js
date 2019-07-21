@@ -8,40 +8,53 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import '../App.css';
 import firebase from '../config/firebase';
+import { connect } from 'react-redux';
+import { readPassword } from '../store/action';
+import { setIsLogin } from "../store/action";
+import { setEmail } from "../store/action";
 
-
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.ref = firebase.firestore().collection('passwords');
+        if(this.props.email){
+            this.ref = firebase.firestore().collection('passwords').where("email", "==", this.props.email);
+        }   
         this.unsubscribe = null;
         this.state = {
-            passwords: [],
             value: ''
         };
     }
 
-    onCollectionUpdate = (querySnapshot) => {
-        const passwords = [];
-        querySnapshot.forEach((doc) => {
-            const { url, password, username, createdAt, updatedAt } = doc.data();
-            passwords.push({
-                key: doc.id,
-                doc,
-                url,
-                password,
-                username,
-                createdAt,
-                updatedAt
-            });
-        });
-        this.setState({
-            passwords
-        });
+    componentDidMount() {
+        if(this.props.email){
+            this.unsubscribe = this.ref.onSnapshot(this.props.readPassword);
+        }
+        this.isLoginFirebase((value,email) => {
+            if(value){
+                this.props.setEmail(email);
+                this.props.setIsLogin(true);
+            }
+            else{
+                console.log('no user')
+            }
+        })
     }
 
-    componentDidMount() {
-        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    componentDidUpdate(){
+        if(this.props.isLogin === false ){
+            this.props.history.push('/')
+        }
+    }
+
+    isLoginFirebase = (cb) => {
+        firebase.auth().onAuthStateChanged(function(user){
+            if(user){
+                cb(true,user.email)       
+            }else{
+                cb(false)
+                console.log('no user');
+            }
+        })
     }
 
     handleChange = event => {
@@ -50,11 +63,19 @@ export default class Dashboard extends React.Component {
     };
 
     render() {
-        let filteredPassword = this.state.passwords.filter(
-            (password) => {
-                return password.url.indexOf(this.state.value)!== -1;
-            }
-        );
+        if(this.props.passwords){
+            var filteredPassword = this.props.passwords.filter(
+                (password) => {
+                    return password.url.indexOf(this.state.value)!== -1;
+                }
+            );
+        }
+
+        if(this.props.email){
+            this.ref = firebase.firestore().collection('passwords').where("email", "==", this.props.email);
+            this.unsubscribe = this.ref.onSnapshot(this.props.readPassword);
+        }
+
         return (
             <div style={{ padding: 50 }}>
                 <Container>
@@ -78,7 +99,9 @@ export default class Dashboard extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredPassword.map((password,index) =>
+                                    {
+                                        (filteredPassword) ?
+                                        filteredPassword.map((password,index) =>
                                         <tr key={index}>
                                             <td>{password.url}</td>
                                             <td>{password.username}</td>
@@ -87,7 +110,9 @@ export default class Dashboard extends React.Component {
                                             <td>{password.updatedAt}</td>
                                             <td><Link to={`/detail/${password.key}`}><Button variant="primary" size="sm">Detail</Button></Link></td>
                                         </tr>
-                                    )}
+                                        )
+                                        :''
+                                    }
                                 </tbody>
                             </Table>
                         </Col>
@@ -97,3 +122,15 @@ export default class Dashboard extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        passwords:state.passwords.alldata,
+        isLogin:state.isLogin,
+        email:state.email
+    }
+}
+  
+const mapDispatchToProps = {readPassword, setIsLogin, setEmail}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)

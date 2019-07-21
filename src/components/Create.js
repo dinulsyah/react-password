@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -20,7 +20,8 @@ class Create extends React.Component{
                 username: '',
                 password: '',
                 createdAt: date,
-                updatedAt: date
+                updatedAt: date,
+                email:this.props.email
               },
               hasLowerCase:false,
               hasUpperCase:false,
@@ -33,16 +34,9 @@ class Create extends React.Component{
 
     componentDidUpdate(prevProps){
       if(prevProps.status !== this.props.status){
-        if(this.props.status === true){
           this.props.resetStatus()
           this.setField()
-          this.props.history.push("/")
-        }
-        else{
-          this.props.resetStatus()
-          console.log('error tambahkan data')
-          this.setField()
-        }
+          this.props.history.push("/home")
       }
     }
 
@@ -116,17 +110,18 @@ class Create extends React.Component{
     addDataSuccess (e) {
       e.preventDefault()
       if(this.validationSuccess()){
-        const { url, username, password, createdAt, updatedAt} = this.state;
+        const { url, username, password, createdAt, updatedAt, email} = this.state;
         this.props.createPassword({
           url,
           username,
           password,
           createdAt,
-          updatedAt
+          updatedAt,
+          email
         })
       }
      else{
-      alert('validasi gagal')
+      this.setField()
      }
     }
 
@@ -147,38 +142,38 @@ class Create extends React.Component{
                         <Form onSubmit={this.addDataSuccess.bind(this)}>
                             <Form.Group controlId="formGroupEmail">
                                 <Form.Label className="font-style">Url</Form.Label>
-                                <Form.Control type="text" placeholder="Enter url" name='url' onChange={this.handleChange.bind(this)} value={this.state.data.url} className="size-input"/>
+                                <Form.Control type="text" placeholder="Enter url" name='url' onChange={this.handleChange.bind(this)} value={this.state.data.url} className="size-input" data-testid="url"/>
                             </Form.Group>
                             <Form.Group controlId="formGroupUsername">
                                 <Form.Label className="font-style">Username</Form.Label>
-                                <Form.Control type="text" name='username' placeholder="Enter Username" onChange={this.handleChange.bind(this)} value={this.state.data.username} className="size-input"/>
+                                <Form.Control type="text" name='username' placeholder="Enter Username" onChange={this.handleChange.bind(this)} value={this.state.data.username} className="size-input"data-testid="username"/>
                             </Form.Group>
                             <Form.Group controlId="formGroupPassword">
                                 <Form.Label className="font-style">Password</Form.Label>
-                                <Form.Control type="password" name='password' placeholder="Password" onChange={this.handleChange.bind(this)} value={this.state.data.password} className="size-input"/>
+                                <Form.Control type="password" name='password' placeholder="Password" onChange={this.handleChange.bind(this)} value={this.state.data.password} className="size-input" data-testid="password"/>
                             </Form.Group>
                             {(this.state.data.password) 
                             ? (
                             <div className="center-alert">
-                                <Alert variant={(this.state.hasLowerCase) ? "success" : "danger"} className="alert-custom">
+                                <Alert data-testid="lower" variant={(this.state.hasLowerCase) ? "success" : "danger"} className="alert-custom">
                                     Password at least must have one lowercase character
                                 </Alert>
-                                <Alert variant={(this.state.hasUpperCase) ? "success" : "danger"}  className="alert-custom">
+                                <Alert data-testid="upper" variant={(this.state.hasUpperCase) ? "success" : "danger"}  className="alert-custom">
                                     Password at least must have one uppercase character
                                 </Alert>
-                                <Alert variant={(this.state.hasNumber) ? "success" : "danger"}  className="alert-custom">
+                                <Alert data-testid="number" variant={(this.state.hasNumber) ? "success" : "danger"}  className="alert-custom">
                                     Password at least must have one number character
                                 </Alert>
-                                <Alert variant={(this.state.hasSpecial) ? "success" : "danger"}  className="alert-custom">
+                                <Alert data-testid="special" variant={(this.state.hasSpecial) ? "success" : "danger"}  className="alert-custom">
                                     Password at least must have one special character
                                 </Alert>
-                                <Alert variant={(this.state.has5Char) ? "success" : "danger"}  className="alert-custom">
+                                <Alert data-testid="length" variant={(this.state.has5Char) ? "success" : "danger"}  className="alert-custom">
                                     Password length must be more than 5 characters
                                 </Alert>
                             </div>)
                             :''
                             }
-                            <Button variant="primary" type="submit" size="sm">
+                            <Button variant="primary" type="submit" size="sm" data-testid="testaja">
                                 Submit
                             </Button>
                         </Form>
@@ -192,7 +187,8 @@ class Create extends React.Component{
 
 const mapStateToProps = (state) => {
   return{
-    status:state.passwords.status
+    status:state.passwords.status,
+    email:state.email
   }
 }
 

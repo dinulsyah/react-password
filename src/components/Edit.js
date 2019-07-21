@@ -16,7 +16,8 @@ export default class Create extends React.Component{
                 username: '',
                 password: '',
                 createdAt:'',
-                updatedAt: ''
+                updatedAt: '',
+                email:''
               },
               hasLowerCase:false,
               hasUpperCase:false,
@@ -41,7 +42,8 @@ export default class Create extends React.Component{
               username:password.username,
               password:password.password,
               createdAt:password.createdAt,
-              updatedAt:password.updatedAt
+              updatedAt:password.updatedAt,
+              email:password.email
             }
           },() => {
             console.log(this.state.data)
@@ -106,7 +108,7 @@ export default class Create extends React.Component{
 
     addDataSuccess (e) {
       e.preventDefault()
-      const { url, username, password , updatedAt,createdAt} = this.state.data;
+      const { url, username, password , email ,createdAt} = this.state.data;
       if(this.validationSuccess()){
         const updateRef = firebase.firestore().collection('passwords').doc(this.state.key);
         let date = new Date().toLocaleDateString("en",{year:"numeric",day:"2-digit",month:"2-digit"});
@@ -116,6 +118,7 @@ export default class Create extends React.Component{
           password,
           createdAt,
           updatedAt:date,
+          email
         }).then((docRef) => {
           const backToInitialState = {
             data: {
