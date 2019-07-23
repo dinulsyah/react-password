@@ -31,11 +31,6 @@ class Firebase {
 	logout() {
 		return this.auth.signOut()
 	}
-	isInitialized() {
-		return new Promise(resolve => {
-			this.auth.onAuthStateChanged(resolve)
-		})
-	}
 }
 
 const firebaseInstance = process.env.NODE_ENV === 'test' ?	mockFirebase : new Firebase();

@@ -90,7 +90,6 @@ class MockFirebase {
 				}
 			}
 		};
-		this.session = 'fake session';
 	}
 	register(email, password) {
 		return new Promise((resolve, reject) => {
@@ -116,13 +115,6 @@ class MockFirebase {
 	}	
 	logout() {
 		return new Promise(resolve => resolve())
-	}
-	isInitialized() {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve()
-			}, 200);
-		})
 	}
 }
 
