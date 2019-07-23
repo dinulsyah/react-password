@@ -12,17 +12,10 @@ Enzyme.configure({ adapter: new Adapter() });
 afterEach(cleanup)
 
 describe('Login Testing', () => {
-    it('should get the input value', async () => {
-        // const wrapper = mount(
-        //     <Provider store={store}>
-        //         <Login />
-        //     </Provider>
-        // );
-        // expect(wrapper.state().email).toBe(undefined);
-
+    it('User Success Login', async () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
             <Provider store={store}>
-                <Login/>
+                <Login history={[]}/>
             </Provider>
         );
 
@@ -37,6 +30,41 @@ describe('Login Testing', () => {
         fireEvent.change(email, { target: { value: inputEmail } });
         
         fireEvent.change(password, { target: { value: inputPassword } });
+        
+        expect(email.value).toBe("dinulsyah@gmail.com");
+        expect(password.value).toBe("dinulsyah");
+
+        const login = getByTestId("testaja");
+        fireEvent.click(login);
+
+        await wait(() => {
+            expect(queryByTestId("email")).toBeInTheDocument();
+            expect(queryByTestId("password")).toBeInTheDocument();
+        })
+
+    })
+
+    it('User Failed Login', async () => {
+        const { container, getByText, debug, getByTestId, queryByTestId } = render(
+            <Provider store={store}>
+                <Login history={[]}/>
+            </Provider>
+        );
+
+        expect(getByTestId("testaja")).toHaveTextContent("Submit");
+
+        const inputEmail = "dinulsyah@gmail.com";
+        const email = getByTestId("email");
+
+        const inputPassword = "wrongpassword";
+        const password = getByTestId("password");
+
+        fireEvent.change(email, { target: { value: inputEmail } });
+        
+        fireEvent.change(password, { target: { value: inputPassword } });
+        
+        expect(email.value).toBe("dinulsyah@gmail.com");
+        expect(password.value).toBe("wrongpassword");
 
         const login = getByTestId("testaja");
         fireEvent.click(login);

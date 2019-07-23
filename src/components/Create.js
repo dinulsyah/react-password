@@ -12,7 +12,7 @@ import { createPassword, resetStatus} from '../store/action';
 class Create extends React.Component{
     constructor(props){
         super(props);
-        this.ref = firebase.firestore().collection('passwords');
+        this.ref = firebase.db.collection('passwords');
         let date = new Date().toLocaleDateString("en",{year:"numeric",day:"2-digit",month:"2-digit"});
         this.state = {
             data: {

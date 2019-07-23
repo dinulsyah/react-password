@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         if(this.props.email){
-            this.ref = firebase.firestore().collection('passwords').where("email", "==", this.props.email);
+            this.ref = firebase.db.collection('passwords').where("email", "==", this.props.email);
         }   
         this.unsubscribe = null;
         this.state = {
@@ -34,9 +34,6 @@ class Dashboard extends React.Component {
                 this.props.setEmail(email);
                 this.props.setIsLogin(true);
             }
-            else{
-                console.log('no user')
-            }
         })
     }
 
@@ -47,12 +44,9 @@ class Dashboard extends React.Component {
     }
 
     isLoginFirebase = (cb) => {
-        firebase.auth().onAuthStateChanged(function(user){
+        firebase.auth.onAuthStateChanged(function(user){
             if(user){
                 cb(true,user.email)       
-            }else{
-                cb(false)
-                console.log('no user');
             }
         })
     }
@@ -72,7 +66,7 @@ class Dashboard extends React.Component {
         }
 
         if(this.props.email){
-            this.ref = firebase.firestore().collection('passwords').where("email", "==", this.props.email);
+            this.ref = firebase.db.collection('passwords').where("email", "==", this.props.email);
             this.unsubscribe = this.ref.onSnapshot(this.props.readPassword);
         }
 
@@ -82,7 +76,7 @@ class Dashboard extends React.Component {
                     <h1 className="font-style" data-testid="title"><span><u>My Password List</u></span></h1>
                     <Row className="justify-content-md-center" style={{ padding: 50 }}>
                         <Col md={4}>
-                            <Form.Control type="text" placeholder="Search Url.." value={this.state.value} onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="Search Url.." value={this.state.value} onChange={this.handleChange} data-testid="searchurl"/>
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center">
@@ -100,7 +94,7 @@ class Dashboard extends React.Component {
                                 </thead>
                                 <tbody>
                                     {
-                                        (filteredPassword) ?
+                                        (filteredPassword) &&
                                         filteredPassword.map((password,index) =>
                                         <tr key={index}>
                                             <td>{password.url}</td>
@@ -111,7 +105,6 @@ class Dashboard extends React.Component {
                                             <td><Link to={`/detail/${password.key}`}><Button variant="primary" size="sm">Detail</Button></Link></td>
                                         </tr>
                                         )
-                                        :''
                                     }
                                 </tbody>
                             </Table>

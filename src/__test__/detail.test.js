@@ -13,7 +13,7 @@ describe('Detail Testing', () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
             <BrowserRouter>
             <Provider store={store}>
-                <Detail match={{ params: { id: '0qWQuMPhrlojlhJcd3FP' } }} />
+                <Detail match={{ params: { id: 1 } }}/>
             </Provider>
             </BrowserRouter>
         );
@@ -25,7 +25,19 @@ describe('Detail Testing', () => {
 
             const edit = getByTestId("edit");
             fireEvent.click(edit);
-            expect(getByTestId("url").innerHTML).toBe("Url:<b>https://github.com</b>");
+            expect(getByTestId("url").innerHTML).toBe("Url:<b>github.com</b>");
         });
+    })
+
+    it("should render no such document", async () => {
+        const { container, getByText, debug, getByTestId, queryByTestId } = render(
+            <BrowserRouter>
+            <Provider store={store}>
+                <Detail match={{ params: { id: 1 } }} history={[]}/>
+            </Provider>
+            </BrowserRouter>
+        );
+        const deleting = getByTestId("delete");
+        fireEvent.click(deleting);
     })
 })

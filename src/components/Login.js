@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import { setIsLogin } from "../store/action";
 import { setEmail } from "../store/action";
 
-
 class Landing extends Component {
     constructor(props){
         super(props);
@@ -19,36 +18,14 @@ class Landing extends Component {
             password:'',
         };
         this.setField = this.setField.bind(this)
-    }
-
-    componentDidMount(){
-        this.isLoginFirebase((value,email) => {
-            if(value){
-                this.props.setEmail(email);
-                this.props.setIsLogin(true);
-                this.props.history.push("/home");
-            }
-            else{
-                console.log('no user')
-            }
-        })
-    }
-
-    isLoginFirebase(cb){
-        firebase.auth().onAuthStateChanged(function(user){
-            if(user){
-                cb(true,user.email)       
-            }else{
-                cb(false)
-                console.log('no user');
-            }
-        })
+        this.emailInput = this.emailInput.bind(this)
+        this.passwordInput = this.passwordInput.bind(this)
     }
 
     addDataSuccess(e) {
         e.preventDefault()
         console.log('test',this.state.email, this.state.password)
-        firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
+        firebase.login(this.state.email,this.state.password)
             .then(authUser => {
                 this.setField()
                 this.props.setEmail(authUser.user.email);
@@ -56,7 +33,6 @@ class Landing extends Component {
                 this.props.history.push('/home');
             })
             .catch((error) =>{
-                alert(error.message)
                 console.log(error.message);
             })
     }
@@ -69,19 +45,19 @@ class Landing extends Component {
         this.setState(backToInitialState)
      }
 
-    render() {
-        const emailInput = (event) =>{
-            this.setState({
-                email:event.target.value
-            })
-        }
-    
-        const passwordInput = (event) => {
-            this.setState({
-                password:event.target.value
-            })
-        }
+     emailInput(event){
+        this.setState({
+            email:event.target.value
+        })
+     }
 
+     passwordInput(event){
+        this.setState({
+            password:event.target.value
+        })
+     }
+
+    render() {
         return (
             <div style={{ padding: 15 }}>
                 <Container>
@@ -91,12 +67,12 @@ class Landing extends Component {
                             <Form onSubmit={this.addDataSuccess.bind(this)}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" onChange={emailInput} data-testid="email"/>
+                                    <Form.Control type="email" placeholder="Enter email" onChange={this.emailInput} data-testid="email"/>
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" onChange={passwordInput} data-testid="password"/>
+                                    <Form.Control type="password" placeholder="Password" onChange={this.passwordInput} data-testid="password"/>
                                 </Form.Group>
                                 <Button variant="primary" type="submit" data-testid="testaja">
                                     Submit

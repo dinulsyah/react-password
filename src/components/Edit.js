@@ -31,7 +31,7 @@ export default class Create extends React.Component{
     }
 
     componentDidMount() {
-      const ref = firebase.firestore().collection('passwords').doc(this.props.match.params.id);
+      const ref = firebase.db.collection('passwords').doc(this.props.match.params.id);
       ref.get().then((doc) => {
         if (doc.exists) {
           const password = doc.data();
@@ -49,9 +49,7 @@ export default class Create extends React.Component{
             console.log(this.state.data)
           });
           this.validatePassword(this.state.data.password)
-        } else {
-          console.log("No such document!");
-        }
+        } 
       });
     }
 
@@ -110,7 +108,7 @@ export default class Create extends React.Component{
       e.preventDefault()
       const { url, username, password , email ,createdAt} = this.state.data;
       if(this.validationSuccess()){
-        const updateRef = firebase.firestore().collection('passwords').doc(this.state.key);
+        const updateRef = firebase.db.collection('passwords').doc(this.state.key);
         let date = new Date().toLocaleDateString("en",{year:"numeric",day:"2-digit",month:"2-digit"});
         updateRef.set({
           url, 

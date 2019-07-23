@@ -1,7 +1,7 @@
 import { SUCCESS_PASSWORD , ERROR_PASSWORD, RESET_STATUS, SET_ISLOGIN, SET_EMAIL, SET_DATA} from './actionType';
 import firebase from '../config/firebase';
 
-const database = firebase.firestore().collection('passwords');
+const database = firebase.db.collection('passwords');
 
 export function createPassword(payload){
     console.log(payload)

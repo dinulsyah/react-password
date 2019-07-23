@@ -17,7 +17,7 @@ export default class Detail extends Component {
     }
 
     componentDidMount(){
-        const ref = firebase.firestore().collection('passwords').doc(this.props.match.params.id);
+        const ref = firebase.db.collection('passwords').doc(this.props.match.params.id);
         ref.get().then((doc) => {
           if (doc.exists) {
             this.setState({
@@ -25,14 +25,12 @@ export default class Detail extends Component {
               key: doc.id,
               isLoading: false
             });
-          } else {
-            console.log("No such document!");
-          }
+          } 
         });
     }
 
     delete(id){
-        firebase.firestore().collection('passwords').doc(id).delete().then(() => {
+        firebase.db.collection('passwords').doc(id).delete().then(() => {
           console.log("Document successfully deleted!");
           this.props.history.push("/home")
         }).catch((error) => {

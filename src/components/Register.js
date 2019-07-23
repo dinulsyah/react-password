@@ -29,19 +29,13 @@ class Register extends Component {
                 this.props.setIsLogin(true);
                 this.props.history.push("/home");
             }
-            else{
-                console.log('no user')
-            }
         })
     }
 
     isLoginFirebase(cb){
-        firebase.auth().onAuthStateChanged(function(user){
+        firebase.auth.onAuthStateChanged(function(user){
             if(user){
                 cb(true,user.email)       
-            }else{
-                cb(false)
-                console.log('no user');
             }
         })
     }
@@ -49,7 +43,7 @@ class Register extends Component {
     addDataSuccess (e) {
         e.preventDefault()
         console.log('test',this.state.username, this.state.email, this.state.password)
-        firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
+        firebase.register(this.state.email,this.state.password)
             .then(authUser => {
                 this.props.setEmail(authUser.user.email);
                 this.props.setIsLogin(true); 

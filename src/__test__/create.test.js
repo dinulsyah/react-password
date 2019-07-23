@@ -11,7 +11,7 @@ describe('Create Testing', () => {
     it("should get the input value", async () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
           <Provider store={store}>
-            <Create />
+            <Create history={[]}/>
           </Provider>
         );
         expect(getByTestId("testaja")).toHaveTextContent("Submit");
@@ -36,7 +36,7 @@ describe('Create Testing', () => {
     it("should not get symbol, uppercase and minimum length in the document", () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
           <Provider store={store}>
-            <Create />
+            <Create history={[]}/>
           </Provider>
         );
             
@@ -57,7 +57,7 @@ describe('Create Testing', () => {
       it("should not get lower and number in the document", () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
           <Provider store={store}>
-            <Create />
+            <Create history={[]}/>
           </Provider>
         );
         
@@ -77,7 +77,7 @@ describe('Create Testing', () => {
       it("creating new password success", async () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
           <Provider store={store}>
-            <Create />
+            <Create history={[]}/>
           </Provider>
         );
         expect(getByTestId("testaja")).toBeInTheDocument();
@@ -107,7 +107,7 @@ describe('Create Testing', () => {
     it("creating new password failed", async () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
           <Provider store={store}>
-            <Create />
+            <Create history={[]}/>
           </Provider>
         );
 

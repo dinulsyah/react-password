@@ -10,7 +10,7 @@ class SignInLink extends Component {
     logout = () => {
         this.props.setIsLogin(false);
         this.props.setEmail("");
-        firebase.auth().signOut();
+        firebase.logout();
     };
 
     render() {

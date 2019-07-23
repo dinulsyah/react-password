@@ -83,19 +83,19 @@ describe('Edit Testing', () => {
 
         await wait(() => {
             expect(getByTestId("testaja")).toBeInTheDocument();
-            // const inputPassword4 = "Abc123!";
-            // const password4 = getByTestId("password");
-            // const inputUrl4 = "https://github.com";
-            // const url4 = getByTestId("url");
-            // const inputUsername4 = "amiibo";
-            // const username4 = getByTestId("username");
+            const inputPassword4 = "Abc123!";
+            const password4 = getByTestId("password");
+            const inputUrl4 = "https://github.com";
+            const url4 = getByTestId("url");
+            const inputUsername4 = "amiibo";
+            const username4 = getByTestId("username");
     
-            // fireEvent.change(password4, { target: { value: inputPassword4 } });
-            // fireEvent.change(url4, { target: { value: inputUrl4 } });
-            // fireEvent.change(username4, { target: { value: inputUsername4 } });
+            fireEvent.change(password4, { target: { value: inputPassword4 } });
+            fireEvent.change(url4, { target: { value: inputUrl4 } });
+            fireEvent.change(username4, { target: { value: inputUsername4 } });
     
-            // const create = getByTestId("testaja");
-            // fireEvent.click(create);
+            const create = getByTestId("testaja");
+            fireEvent.click(create);
         })
     })
 
@@ -122,9 +122,9 @@ describe('Edit Testing', () => {
         fireEvent.click(create);
 
         await wait(() => {
-            expect(url.value).toBe("https://github.com");
-            expect(username.value).toBe("amiibo");
-            expect(password.value).toBe("Abc123");
+            expect(url.value).toBe("github.com");
+            expect(username.value).toBe("fakeAccount2");
+            expect(password.value).toBe("bbBB99!");
         });
     })
 })

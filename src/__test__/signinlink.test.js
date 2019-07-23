@@ -8,8 +8,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 afterEach(cleanup)
 
-describe('No Page Test', () => {
-    it("Nopage render successfully", () => {
+describe('Sign in Link Test', () => {
+    it("Test When User Click Logout", () => {
         const { container, getByText, debug, getByTestId, queryByTestId } = render(
         <BrowserRouter>
           <Provider store={store}>
@@ -18,5 +18,7 @@ describe('No Page Test', () => {
         </BrowserRouter>
         );
         expect(queryByTestId("logout")).toBeInTheDocument();
+        const logout = getByTestId("logout");
+        fireEvent.click(logout);
     })
 })
